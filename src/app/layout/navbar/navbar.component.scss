@@ -1,0 +1,7 @@
+@import './src/_variables.scss';
+.navbar {
+    height: 50px;
+    >a {
+        color: $ho-blu;
+    }
+}
