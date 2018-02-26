@@ -1,0 +1,12 @@
+:host {
+  overflow: hidden;
+  height: 100vh;
+  #outlet {
+    position: relative;
+  }
+  /deep/ router-outlet~* {
+    position: absolute;
+    width: 100%;
+    min-height: calc(100% - 100px);
+  }
+}
