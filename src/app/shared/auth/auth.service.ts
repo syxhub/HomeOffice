@@ -40,7 +40,10 @@ export class AuthService {
         const userName = this.getCurrentUser().displayName;
         this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        this.toast.showToast(`warning`, `Login Failed`, err);
+      });
   }
 
   logout() {
