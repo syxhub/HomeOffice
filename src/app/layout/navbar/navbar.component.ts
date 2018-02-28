@@ -1,5 +1,9 @@
+import { componentDestroyed } from 'ng2-rx-componentdestroyed';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '@firebase/auth-types';
+
+import { AuthService } from './../../shared/auth/auth.service';
 
 @Component({
   selector: 'ho-navbar',
@@ -8,9 +12,22 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  isLoggedIn;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.authService.loggedIn
+      .subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
+      });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

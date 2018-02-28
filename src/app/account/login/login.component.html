@@ -7,9 +7,9 @@
         <h1 class="text-center login-title">Welcome to Home Office
           <br>Please Log in</h1>
         <form class="form-signin text-center">
-          <input type="text" class="form-control border-info" placeholder="Email" required autofocus>
-          <input type="password" class="form-control border-info" placeholder="Password" required>
-          <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+          <input type="text" class="form-control border-info" placeholder="Email" name="username" [(ngModel)]="username" required autofocus>
+          <input type="password" class="form-control border-info" placeholder="Password" name="password" [(ngModel)]="password" required>
+          <button class="btn btn-lg btn-info btn-block" type="submit" (click)="login()">Sign in</button>
           <label class="checkbox text-center mt-3">
             <input type="checkbox" value="remember-me"> Remember me
           </label>
