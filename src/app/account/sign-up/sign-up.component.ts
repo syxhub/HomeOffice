@@ -1,3 +1,4 @@
+import { ToastrService } from './../../layout/toastr.component';
 import { Component, OnInit } from '@angular/core';
 
 import { UserToSignUp } from '../../model/user.model';
@@ -13,7 +14,10 @@ export class SignUpComponent implements OnInit {
   newUser: UserToSignUp;
   passwordAgain: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit() {
     this.newUser = new UserToSignUp();
@@ -22,7 +26,8 @@ export class SignUpComponent implements OnInit {
   signUp() {
     if (this.newUser.password === this.passwordAgain) {
       this.authService.signUp(this.newUser);
+    } else {
+      this.toast.showToast('warning', 'Registration Failed', 'The passwords must match!');
     }
   }
-
 }

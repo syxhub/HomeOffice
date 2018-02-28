@@ -1,7 +1,5 @@
-import { componentDestroyed } from 'ng2-rx-componentdestroyed';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@firebase/auth-types';
 
 import { AuthService } from './../../shared/auth/auth.service';
 
@@ -30,5 +28,4 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
-
 }

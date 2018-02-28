@@ -1,11 +1,10 @@
-import { UserToSignUp } from './../../model/user.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@firebase/auth-types';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+
+import { ToastrService } from '../../layout/toastr.component';
+import { UserToSignUp } from './../../model/user.model';
 
 @Injectable()
 export class AuthService {
@@ -15,16 +14,22 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.isLoggedIn();
   }
 
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .catch(err =>
-        console.log(err)
-      );
+      .then(() => {
+        this.toast.showToast('success', 'Registration Successful', 'A verification email has been sent to the given email address.');
+        this.router.navigate(['login']);
+      })
+      .catch(err => {
+        console.log(err);
+        this.toast.showToast('warning', 'Registration Failed', err);
+      });
   }
 
   login(username: string, password: string) {
