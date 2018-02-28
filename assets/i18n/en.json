@@ -1,0 +1,61 @@
+{
+  "login": {
+    "welcome": "Welcome to HomeOffice",
+    "please": "Please Log in",
+    "signIn": "Sign in",
+    "create": "Create account",
+    "help": "Need help?"
+  },
+  "signUp": {
+    "please": "Please fill the fields to sign up",
+    "signUp": "Sign up",
+    "alreadySignedUp": "Already have an account?",
+    "form": {
+      "email": "Email",
+      "password": "Password",
+      "passwordAgain": "Password again"
+    }
+  },
+  "dashboard": {
+    "coopEdit": {
+      "title": "Coop-Edit",
+      "editorId": "Editor ID:",
+      "create": "Create Editor",
+      "join": "Or Join Another",
+      "enterId": "Please enter the Editor ID:"
+    },
+    "taskManager": {
+      "title": "Tasks",
+      "modal": {
+        "title": "Create Task",
+        "taskTitle": "Title",
+        "taskDescritiption": "Description",
+        "submit": "Create"
+      }
+    }
+  },
+  "chat": {
+    "list": {
+      "people": "People",
+      "groups": "Groups"
+    }
+  },
+  "message": {
+    "alert": {
+      "loginFailed": "Login Failed",
+      "registrationFailed": "Registration Failed",
+      "passwordsNotMatch": "The passwords must match!"
+    },
+    "info": {
+      "welcomeBack": "Welcome back, {{userName}}!"
+    },
+    "success": {
+      "registrationSuccess": "Registration Success",
+      "verificationEmailSent": "A verification email has been sent to the given email address.",
+      "editorSuccess": "Coop-Edit",
+      "editorCopyId": "Editor ID has been successfully copied to your clipboard!",
+      "editorCreation": "Editor has been successfully created!",
+      "editorJoin": "Successfully joined to an existing Editor!"
+    }
+  }
+}
