@@ -68,10 +68,14 @@
   border-radius: 50%;
 }
 
-.new-account,
+.submit {
+  margin-bottom: 20px;
+}
+
+.already-signed-up,
 .need-help {
   display: block;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .background {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserToSignUp } from '../../model/user.model';
+import { AuthService } from './../../shared/auth/auth.service';
+
 @Component({
   selector: 'ho-sign-up',
   templateUrl: './sign-up.component.html',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  newUser: UserToSignUp;
+  passwordAgain: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.newUser = new UserToSignUp();
+  }
+
+  signUp() {
+    if (this.newUser.password === this.passwordAgain) {
+      this.authService.signUp(this.newUser);
+    }
   }
 
 }
