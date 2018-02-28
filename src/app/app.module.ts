@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -24,6 +25,7 @@ import { SubpagesModule } from './subpages/subpages.module';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     BrowserModule,
     NgbModule.forRoot(),
     SharedModule,
