@@ -58,4 +58,12 @@ export class AuthService {
   isLoggedIn() {
     return this.afAuth.authState;
   }
+
+  isUserNameSet() {
+    return this.getCurrentUser().displayName;
+  }
+
+  setUserName(userName: string) {
+    this.afAuth.auth.currentUser.updateProfile({displayName: userName, photoURL: null});
+  }
 }
