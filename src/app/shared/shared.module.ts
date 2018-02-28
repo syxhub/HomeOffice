@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ng2-toastr-notifications';
 
+import { ToastrService } from '../layout/toastr.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
 
@@ -11,7 +13,8 @@ import { AuthService } from './auth/auth.service';
   declarations: [],
   providers: [
     AuthGuard,
-    AuthService
+    AuthService,
+    ToastrService
   ],
   exports: [
     FormsModule

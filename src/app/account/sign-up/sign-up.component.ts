@@ -1,4 +1,4 @@
-import { ToastrService } from './../../layout/toastr.component';
+import { ToastrService } from './../../layout/toastr.service';
 import { Component, OnInit } from '@angular/core';
 
 import { UserToSignUp } from '../../model/user.model';
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
     if (this.newUser.password === this.passwordAgain) {
       this.authService.signUp(this.newUser);
     } else {
-      this.toast.showToast('warning', 'Registration Failed', 'The passwords must match!');
+      this.toast.showToast(`warning`, `Registration Failed`, `The passwords must match!`);
     }
   }
 }

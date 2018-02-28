@@ -12,7 +12,6 @@ import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
-import { ToastrService } from './layout/toastr.component';
 import { SharedModule } from './shared/shared.module';
 import { SubpagesModule } from './subpages/subpages.module';
 
@@ -34,9 +33,7 @@ import { SubpagesModule } from './subpages/subpages.module';
     SharedModule,
     SubpagesModule
   ],
-  providers: [
-    ToastrService
-  ],
+  providers: [],
   bootstrap: [
     AppComponent
   ]

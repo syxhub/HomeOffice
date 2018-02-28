@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs/Subject';
 
-import { ToastrService } from '../../layout/toastr.component';
+import { ToastrService } from '../../layout/toastr.service';
 import { UserToSignUp } from './../../model/user.model';
 
 @Injectable()
@@ -23,20 +23,22 @@ export class AuthService {
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
-        this.toast.showToast('success', 'Registration Successful', 'A verification email has been sent to the given email address.');
+        this.toast.showToast(`success`, `Registration Successful`, `A verification email has been sent to the given email address.`);
         this.router.navigate(['login']);
       })
       .catch(err => {
         console.log(err);
-        this.toast.showToast('warning', 'Registration Failed', err);
+        this.toast.showToast(`warning`, `Registration Failed`, err);
       });
   }
 
-  login(username: string, password: string) {
-    this.afAuth.auth.signInWithEmailAndPassword(username, password)
+  login(email: string, password: string) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user => {
         this.loggedIn.next(true);
         this.router.navigate(['dashboard']);
+        const userName = this.getCurrentUser().displayName;
+        this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
       })
       .catch(err => console.log(err));
   }
