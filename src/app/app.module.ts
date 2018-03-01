@@ -19,7 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { SubpagesModule } from './subpages/subpages.module';
 
 export function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'build/shared/i18n', '.json');
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
