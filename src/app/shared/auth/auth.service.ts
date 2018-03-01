@@ -37,8 +37,6 @@ export class AuthService {
       .then(user => {
         this.loggedIn.next(true);
         this.router.navigate(['dashboard']);
-        const userName = this.getCurrentUser().displayName;
-        this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
       })
       .catch(err => {
         console.log(err);
