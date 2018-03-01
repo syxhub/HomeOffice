@@ -1,3 +1,4 @@
+import { DatabaseService } from './../database/database.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +18,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private dataBase: DatabaseService,
     private modalService: NgbModal,
     private router: Router,
     private toast: ToastrService,
@@ -49,12 +51,11 @@ export class AuthService {
         this.router.navigate(['dashboard']);
         setTimeout(() => {
           if (!this.isUserNameSet()) {
-            const modalRef = this.modalService.open(FirstLoginComponent, {
-              backdrop: 'static',
-              keyboard: false
-            }).result.then(userName =>
-              this.setUserName(userName)
-            );
+            const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
+              .result.then(userName => {
+                this.setUserName(userName);
+                this.dataBase.createDatabaseForUser(this.afAuth.auth.currentUser.uid, userName);
+              });
           } else {
             const userName = this.getCurrentUser().displayName;
             this.translate.get('message.info.welcomeBack', { userName: userName })
