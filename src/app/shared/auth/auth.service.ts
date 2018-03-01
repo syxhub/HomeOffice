@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs/Subject';
 
@@ -18,7 +19,8 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private modalService: NgbModal,
     private router: Router,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private translate: TranslateService
   ) {
     this.isLoggedIn();
   }
@@ -26,12 +28,17 @@ export class AuthService {
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
-        this.toast.showToast(`success`, `Registration Successful`, `A verification email has been sent to the given email address.`);
+        this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
+          .subscribe(message => {
+            this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
+          });
         this.router.navigate(['login']);
       })
       .catch(err => {
         console.log(err);
-        this.toast.showToast(`warning`, `Registration Failed`, err);
+        this.translate.get('message.alert.registrationFailed').subscribe(failed =>
+          this.toast.showToast(`warning`, failed, err)
+        );
       });
   }
 
@@ -50,13 +57,17 @@ export class AuthService {
             );
           } else {
             const userName = this.getCurrentUser().displayName;
-            this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
+            this.translate.get('message.info.welcomeBack', { userName: userName })
+              .subscribe(welcome =>
+                this.toast.showToast(`info`, ``, welcome)
+              );
           }
         }, 1000);
       })
       .catch(err => {
         console.log(err);
-        this.toast.showToast(`warning`, `Login Failed`, err);
+        this.translate.get('message.alert.loginFailed').subscribe(failed =>
+          this.toast.showToast(`warning`, failed, err));
       });
   }
 
