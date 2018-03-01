@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs/Subject';
 
 import { ToastrService } from '../../layout/toastr.service';
+import { FirstLoginComponent } from '../../subpages/dashboard/first-login/first-login.component';
 import { UserToSignUp } from './../../model/user.model';
 
 @Injectable()
@@ -14,6 +16,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private modalService: NgbModal,
     private router: Router,
     private toast: ToastrService
   ) {
@@ -37,6 +40,19 @@ export class AuthService {
       .then(user => {
         this.loggedIn.next(true);
         this.router.navigate(['dashboard']);
+        setTimeout(() => {
+          if (!this.isUserNameSet()) {
+            const modalRef = this.modalService.open(FirstLoginComponent, {
+              backdrop: 'static',
+              keyboard: false
+            }).result.then(userName =>
+              this.setUserName(userName)
+            );
+          } else {
+            const userName = this.getCurrentUser().displayName;
+            this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
+          }
+        }, 1000);
       })
       .catch(err => {
         console.log(err);
@@ -62,6 +78,6 @@ export class AuthService {
   }
 
   setUserName(userName: string) {
-    this.afAuth.auth.currentUser.updateProfile({displayName: userName, photoURL: null});
+    this.afAuth.auth.currentUser.updateProfile({ displayName: userName, photoURL: null });
   }
 }

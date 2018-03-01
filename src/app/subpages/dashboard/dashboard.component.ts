@@ -1,8 +1,7 @@
+import { Component, OnInit } from '@angular/core';
+
 import { ToastrService } from './../../layout/toastr.service';
 import { AuthService } from './../../shared/auth/auth.service';
-import { FirstLoginComponent } from './first-login/first-login.component';
-import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ho-dashboard',
@@ -12,26 +11,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
-    private modalService: NgbModal,
-    private toast: ToastrService
   ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      if (!this.authService.isUserNameSet()) {
-        this.openFirstLoginModal();
-      } else {
-        const userName = this.authService.getCurrentUser().displayName;
-        this.toast.showToast(`info`, ``, `Welcome back, ` + userName + `!`);
-      }
-    }, 1000);
-  }
-
-  openFirstLoginModal() {
-    const modalRef = this.modalService.open(FirstLoginComponent, {
-      backdrop: 'static',
-      keyboard: false
-    });
   }
 }

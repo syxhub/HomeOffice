@@ -3,7 +3,7 @@
 </div>
 <div class="modal-body">
   <label>Please enter your username:</label>
-  <input type="text" name="userName" [(ngModel)]="userName" autofocus>
+  <input type="text" name="userName" [(ngModel)]="userName" (keyup)="trimUserName()" autofocus>
 </div>
 <div class="modal-footer justify-content-around">
   <button type="button" class="btn btn-modal btn-primary" (click)="setUserName()">Yes</button>

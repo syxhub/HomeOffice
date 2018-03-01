@@ -10,7 +10,7 @@ import { AuthService } from './../../shared/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  isNavbarCollapsed = false;
+  isNavbarCollapsed = true;
   isLoggedIn;
 
   constructor(

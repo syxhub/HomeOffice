@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../../../shared/auth/auth.service';
+import { ToastrService } from '../../../layout/toastr.service';
 
 @Component({
   selector: 'ho-first-login',
@@ -12,16 +12,23 @@ export class FirstLoginComponent implements OnInit {
   userName: string;
 
   constructor(
-    private authService: AuthService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private toast: ToastrService
   ) { }
 
   ngOnInit() {
+    this.userName = '';
+  }
+
+  trimUserName() {
+    this.userName = this.userName.replace(/\s/g, '');
   }
 
   setUserName() {
-    this.authService.setUserName(this.userName);
-    this.activeModal.close();
+    if (this.userName.replace(/\s/g, '') !== '') {
+      this.activeModal.close(this.userName.replace(/\s/g, ''));
+    } else {
+      this.toast.showToast(`warning`, `Invalid username`, `Your username cannot be empty or contain only spaces!`);
+    }
   }
-
 }
