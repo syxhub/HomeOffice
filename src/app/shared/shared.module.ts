@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +23,7 @@ import { DatabaseService } from './database/database.service';
     ToastrService
   ],
   exports: [
+    CommonModule,
     FormsModule,
     TranslateModule
   ],

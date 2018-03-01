@@ -1,8 +1,10 @@
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ScrumBoardComponent } from './scrum-board/scrum-board.component';
+
 import { AuthGuard } from '../shared/auth/auth-guard.service';
+import { ChatComponent } from './chat/chat.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ScrumBoardComponent } from './scrum-board/scrum-board.component';
 
 const routes: Routes = [
   {
@@ -13,6 +15,11 @@ const routes: Routes = [
   {
     path: 'scrum-board',
     component: ScrumBoardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
     canActivate: [AuthGuard]
   }
 ];

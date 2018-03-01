@@ -7,3 +7,8 @@ export class UserToSignUp {
     this.password = '';
   }
 }
+
+export interface User {
+  id: string;
+  name: string;
+}

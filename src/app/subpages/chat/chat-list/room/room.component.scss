@@ -1,0 +1,12 @@
+@import './../../../../../_variables.scss';
+
+:host {
+  display: block;
+  background: $ho-blu;
+  transition: ease-in 0.2s;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
