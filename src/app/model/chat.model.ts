@@ -1,7 +1,6 @@
 import { User } from './user.model';
 
 export interface ChatRoom {
-  id: string;
   name: string;
   messages: Array<ChatMessage>;
   members: Array<User>;
@@ -9,7 +8,6 @@ export interface ChatRoom {
 }
 
 export interface ChatMessage {
-  id: string;
   sender: User;
   text: string;
 }

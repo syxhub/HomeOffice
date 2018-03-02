@@ -1,1 +1,6 @@
-<ho-room *ngFor="let room of chatRooms"></ho-room>
+<div id="single-chat" *ngIf="userList">
+  <ho-room *ngFor="let user of userList" [roomName]="user"></ho-room>
+</div>
+<div id="group-chat" *ngIf="chatRooms">
+  <ho-room *ngFor="let room of chatRooms" [roomName]="room"></ho-room>
+</div>

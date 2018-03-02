@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DatabaseService } from './../../shared/database/database.service';
+
 @Component({
   selector: 'ho-chat',
   templateUrl: './chat.component.html',
@@ -9,7 +11,6 @@ export class ChatComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

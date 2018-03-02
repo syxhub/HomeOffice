@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { ChatRoom } from '../../../../model/chat.model';
 
 @Component({
   selector: 'ho-room',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
+
+  @Input() roomName: string;
 
   constructor() { }
 

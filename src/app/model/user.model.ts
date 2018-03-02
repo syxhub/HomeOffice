@@ -9,6 +9,6 @@ export class UserToSignUp {
 }
 
 export interface User {
-  id: string;
+  uid: string;
   name: string;
 }
