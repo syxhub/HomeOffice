@@ -29,9 +29,9 @@ export class SignUpComponent implements OnInit {
     if (this.newUser.password === this.passwordAgain) {
       this.authService.signUp(this.newUser);
     } else {
-      // this.translate.get(['message.alert.registrationFailed', 'message.alert.passwordsNotMatch'])
-      //   .subscribe(message =>
-      //     this.toast.showToast(`warning`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]));
+      this.translate.get(['message.alert.registrationFailed', 'message.alert.passwordsNotMatch'])
+        .subscribe(message =>
+          this.toast.showToast(`warning`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]));
     }
   }
 }

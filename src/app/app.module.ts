@@ -8,7 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-// import { ToastrModule } from 'ng2-toastr-notifications';
+import { ToastrModule } from 'ng2-toastr-notifications';
 
 import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
@@ -37,7 +37,7 @@ export function httpLoaderFactory(http: HttpClient) {
     BrowserModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    // ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
