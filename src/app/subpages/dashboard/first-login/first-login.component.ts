@@ -28,7 +28,7 @@ export class FirstLoginComponent implements OnInit {
     if (this.userName.replace(/\s/g, '') !== '') {
       this.activeModal.close(this.userName.replace(/\s/g, ''));
     } else {
-      this.toast.showToast(`warning`, `Invalid username`, `Your username cannot be empty or contain only spaces!`);
+      // this.toast.showToast(`warning`, `Invalid username`, `Your username cannot be empty or contain only spaces!`);
     }
   }
 }

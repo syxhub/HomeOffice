@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ToastrService } from './../../layout/toastr.service';
 import { AuthService } from './../../shared/auth/auth.service';
 
 @Component({
