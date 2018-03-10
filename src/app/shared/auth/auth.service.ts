@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { tokenNotExpired } from 'angular2-jwt';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ToastrService } from '../../layout/toastr.service';
 import { FirstLoginComponent } from '../../subpages/dashboard/first-login/first-login.component';
@@ -13,8 +14,8 @@ import { DatabaseService } from './../database/database.service';
 @Injectable()
 export class AuthService {
 
-  isNavbarCollapsed = true;
-  loggedIn = new Subject<boolean>();
+  public token: string;
+  loggedIn: BehaviorSubject<boolean>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -24,7 +25,8 @@ export class AuthService {
     private toast: ToastrService,
     private translate: TranslateService
   ) {
-    this.isLoggedIn();
+    this.token = localStorage.getItem('token');
+    this.loggedIn = new BehaviorSubject<boolean>(this.isLoggedInByToken());
   }
 
   signUp(newUser: UserToSignUp) {
@@ -49,6 +51,7 @@ export class AuthService {
       .then(user => {
         this.loggedIn.next(true);
         this.router.navigate(['dashboard']);
+        this.setToken();
         setTimeout(() => {
           if (!this.isUserNameSet()) {
             const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
@@ -73,6 +76,8 @@ export class AuthService {
   }
 
   logout() {
+    this.token = null;
+    localStorage.removeItem('token');
     this.afAuth.auth.signOut();
     this.loggedIn.next(false);
   }
@@ -85,8 +90,25 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
+  isLoggedInByToken() {
+    return tokenNotExpired();
+  }
+
   isUserNameSet() {
     return this.getCurrentUser().displayName;
+  }
+
+  getToken() {
+
+  }
+
+  setToken() {
+    this.afAuth.auth.currentUser.getToken()
+      .then(token => {
+        this.afAuth.auth.setPersistence('session');
+        localStorage.setItem('token', token);
+        localStorage.setItem('homeOfficeUser', this.afAuth.auth.currentUser.displayName);
+      });
   }
 
   setUserName(userName: string) {

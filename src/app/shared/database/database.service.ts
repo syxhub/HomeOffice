@@ -33,7 +33,7 @@ export class DatabaseService {
     return chatRooms.snapshotChanges();
   }
 
-  getUsersForChat() {
+  getUsers() {
     const users = this.db.object('users/');
     return users.valueChanges();
   }

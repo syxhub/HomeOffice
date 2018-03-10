@@ -9,6 +9,8 @@ import { DatabaseService } from './../../shared/database/database.service';
 })
 export class ChatComponent implements OnInit {
 
+  activeChannel;
+
   constructor() { }
 
   ngOnInit() { }

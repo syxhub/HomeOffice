@@ -1,6 +1,6 @@
 <div id="single-chat" *ngIf="userList">
-  <ho-room *ngFor="let user of userList" [roomName]="user"></ho-room>
+  <ho-room *ngFor="let user of userList" (click)="setActiveChatRoom(user)" [roomName]="user"></ho-room>
 </div>
 <div id="group-chat" *ngIf="chatRooms">
-  <ho-room *ngFor="let room of chatRooms" [roomName]="room"></ho-room>
+  <ho-room *ngFor="let room of chatRooms" (click)="setActiveChatRoom(room)" [roomName]="room"></ho-room>
 </div>

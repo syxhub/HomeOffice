@@ -1,6 +1,9 @@
+import { AuthService } from './../../../shared/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 import { DatabaseService } from '../../../shared/database/database.service';
+import { ChatRoom } from '../../../model/chat.model';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'ho-chat-list',
@@ -13,22 +16,25 @@ export class ChatListComponent implements OnInit {
   chatRooms = new Array<string>();
   userList = new Array<string>();
 
+  activeChatRoom: string;
+
   constructor(
+    private chatService: ChatService,
     private dataBase: DatabaseService
   ) { }
 
   ngOnInit() {
     this.dataBase.getChatRooms()
-      .subscribe(chatRooms =>
-        chatRooms.map(room => this.chatRooms.push(room.key))
-      );
+      .subscribe(chatRooms => {
+        chatRooms.map(room => this.chatRooms.push(room.key));
+        this.activeChatRoom = this.chatRooms[0];
+      });
     this.dataBase.getMyChatRooms()
       .subscribe(chatRooms => {
         chatRooms.map(room => console.log(room.key));
       });
-    this.dataBase.getUsersForChat()
+    this.dataBase.getUsers()
       .subscribe(users => {
-        // tslint:disable-next-line:forin
         Object.keys(users)
           .forEach(user =>
             this.userList.push(users[user].name)
@@ -36,4 +42,7 @@ export class ChatListComponent implements OnInit {
       });
   }
 
+  setActiveChatRoom(roomName: string) {
+    this.chatService.setActiveChatRoom(roomName);
+  }
 }
