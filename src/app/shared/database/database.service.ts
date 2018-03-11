@@ -28,6 +28,10 @@ export class DatabaseService {
     return chatRooms.snapshotChanges();
   }
 
+  getMessages() {
+
+  }
+
   getMyChatRooms() {
     const chatRooms = this.db.list('chat/rooms');
     return chatRooms.snapshotChanges();
@@ -37,7 +41,6 @@ export class DatabaseService {
     const users = this.db.object('users/');
     return users.valueChanges();
   }
-
 
   sendMessageToChatRoom(message: ChatMessage, room: ChatRoom) {
     const chatRoom = this.db.list('chat/rooms/' + room.name + '/messages');

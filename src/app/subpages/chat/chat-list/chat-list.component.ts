@@ -1,8 +1,6 @@
-import { AuthService } from './../../../shared/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 import { DatabaseService } from '../../../shared/database/database.service';
-import { ChatRoom } from '../../../model/chat.model';
 import { ChatService } from '../chat.service';
 
 @Component({

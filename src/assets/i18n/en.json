@@ -16,6 +16,12 @@
       "passwordAgain": "Password again"
     }
   },
+  "chat": {
+    "list": {
+      "people": "People",
+      "groups": "Groups"
+    }
+  },
   "message": {
     "alert": {
       "loginFailed": "Login Failed",

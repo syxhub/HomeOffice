@@ -1,0 +1,5 @@
+<div *ngIf="activeChatRoom">
+  <div class="room-name">{{activeChatRoom}}</div>
+
+  <input type="text" #userInput [(ngModel)]="singleText" (keyup.enter)="sendMessage()" autofocus>
+</div>
