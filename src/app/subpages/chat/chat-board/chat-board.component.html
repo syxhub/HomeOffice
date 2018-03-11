@@ -1,5 +1,35 @@
 <div *ngIf="activeChatRoom">
   <div class="room-name">{{activeChatRoom}}</div>
 
+  <div>
+    <div class="message right">
+      <ho-message class="right"></ho-message>
+    </div>
+    <div class="message left">
+      <ho-message class="left"></ho-message>
+    </div>
+    <div class="message left">
+      <ho-message class="left"></ho-message>
+    </div>
+    <div class="message right">
+      <ho-message class="right"></ho-message>
+    </div>
+    <div class="message right">
+      <ho-message class="right"></ho-message>
+    </div>
+    <div class="message left">
+      <ho-message class="left"></ho-message>
+    </div>
+    <div class="message right">
+      <ho-message class="right"></ho-message>
+    </div>
+    <div class="message left">
+      <ho-message class="left"></ho-message>
+    </div>
+    <div class="message right">
+      <ho-message class="right"></ho-message>
+    </div>
+  </div>
+
   <input type="text" #userInput [(ngModel)]="singleText" (keyup.enter)="sendMessage()" autofocus>
 </div>

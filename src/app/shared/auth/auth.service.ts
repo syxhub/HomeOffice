@@ -103,7 +103,7 @@ export class AuthService {
   }
 
   setToken() {
-    this.afAuth.auth.currentUser.getToken()
+    this.afAuth.auth.currentUser.getIdToken()
       .then(token => {
         this.afAuth.auth.setPersistence('session');
         localStorage.setItem('token', token);
