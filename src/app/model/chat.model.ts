@@ -1,10 +1,8 @@
 import { User } from './user.model';
 
 export interface ChatRoom {
-  name: string;
-  messages: Array<ChatMessage>;
   members: Array<User>;
-  hasUnreadMessage: boolean;
+  messages: Array<ChatMessage>;
 }
 
 export interface ChatRoomData {

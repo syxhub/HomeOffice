@@ -1,3 +1,4 @@
+import { ChatRoom } from './../../../model/chat.model';
 import { Component, OnInit } from '@angular/core';
 
 import { ChatService } from '../chat.service';
@@ -9,7 +10,7 @@ import { ChatService } from '../chat.service';
 })
 export class ChatBoardComponent implements OnInit {
 
-  activeChatRoom: Object;
+  activeChatRoom: ChatRoom;
   roomName = '';
   singleText = '';
 
