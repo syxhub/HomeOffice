@@ -9,21 +9,18 @@ import { ChatService } from '../chat.service';
 })
 export class ChatBoardComponent implements OnInit {
 
-  activeChatRoom: string;
+  activeChatRoom: Object;
+  roomName = '';
   singleText = '';
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
     this.chatService.getActiveChatRoom()
-      .subscribe(chatRoom => {
-        this.activeChatRoom = chatRoom;
+      .subscribe(room => {
+        this.roomName = Object.keys(room)[0];
+        this.activeChatRoom = room[this.roomName];
       });
-      this.chatService.getMessages(this.activeChatRoom);
-  }
-
-  getMessages() {
-
   }
 
   sendMessage() {

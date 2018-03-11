@@ -1,0 +1,91 @@
+[{
+    "Group Chat 1": {
+      "members": ["Some User 1", "Some User 2", "Some User 3"],
+      "messages": [{
+          "sentBy": "Me",
+          "text": "1st message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "2nd message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "3rd message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "4th message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "5th message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "6th message"
+        }
+      ]
+    }
+  },
+  {
+    "Group Chat 2": {
+      "members": ["Some User 1", "Some User 2", "Some User 3"],
+      "messages": [{
+          "sentBy": "Me",
+          "text": "1st message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "2nd message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "3rd message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "4th message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "5th message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "6th message"
+        }
+      ]
+    }
+  },
+  {
+    "Group Chat 3": {
+      "members": ["Some User 1", "Some User 2", "Some User 3"],
+      "messages": [{
+          "sentBy": "Some User",
+          "text": "1st message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "2nd message"
+        },
+        {
+          "sentBy": "Some User",
+          "text": "3rd message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "4th message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "5th message"
+        },
+        {
+          "sentBy": "Me",
+          "text": "6th message"
+        }
+      ]
+    }
+  }
+]

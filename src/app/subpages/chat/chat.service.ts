@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class ChatService {
 
-  activeChatRoom = new Subject<string>();
+  activeChatRoom = new Subject<Object>();
 
   constructor(private dateBase: DatabaseService) { }
 
@@ -18,8 +18,8 @@ export class ChatService {
     this.dateBase.getMessages();
   }
 
-  setActiveChatRoom(roomName: string) {
-    this.activeChatRoom.next(roomName);
+  setActiveChatRoom(room: Object) {
+    this.activeChatRoom.next(room);
   }
 
 }

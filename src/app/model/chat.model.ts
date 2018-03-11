@@ -7,7 +7,11 @@ export interface ChatRoom {
   hasUnreadMessage: boolean;
 }
 
+export interface ChatRoomData {
+  rooms: Array<ChatRoom>;
+}
+
 export interface ChatMessage {
-  sender: User;
+  sentBy: User;
   text: string;
 }

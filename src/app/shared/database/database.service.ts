@@ -44,7 +44,7 @@ export class DatabaseService {
 
   sendMessageToChatRoom(message: ChatMessage, room: ChatRoom) {
     const chatRoom = this.db.list('chat/rooms/' + room.name + '/messages');
-    chatRoom.push({ text: message.text, sentAt: Date.now(), sentBy: message.sender });
+    chatRoom.push({ text: message.text, sentAt: Date.now(), sentBy: message.sentBy });
   }
 
 }

@@ -5,7 +5,7 @@
     </div>
     <div id="collapseOne" class="collapse show">
       <div id="single-chat" *ngIf="userList">
-        <ho-room *ngFor="let user of userList" (click)="setActiveChatRoom(user)" [roomName]="user"></ho-room>
+        <ho-room *ngFor="let user of myPrivateChats" (click)="setActiveChatRoom(user)" [roomName]="user"></ho-room>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
     </div>
     <div id="collapseTwo" class="collapse show">
       <div id="group-chat" *ngIf="chatRooms">
-        <ho-room *ngFor="let room of chatRooms" (click)="setActiveChatRoom(room)" [roomName]="room"></ho-room>
+        <ho-room *ngFor="let room of chatRoomData" (click)="setActiveChatRoom(room)" [roomName]="getRoomName(room)"></ho-room>
       </div>
     </div>
   </div>
