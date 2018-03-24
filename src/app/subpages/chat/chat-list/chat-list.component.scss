@@ -1,0 +1,27 @@
+@import './../../../../_variables.scss';
+ho-room {
+  height: 30px;
+  line-height: 30px;
+
+  &.selected {
+    box-shadow: inset 0 0 20px 0 white;
+  }
+}
+
+.card-header {
+  cursor: pointer;
+  text-align: center;
+  transition: 1s;
+  &:hover {
+    color: $ho-blu;
+    background: white;
+  }
+}
+
+#accordion {
+  user-select: none;
+}
+
+.collapsing {
+  overflow: hidden;
+}

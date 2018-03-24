@@ -1,7 +1,27 @@
 @import './src/_variables.scss';
+
 .navbar {
-    height: 50px;
-    >a {
-        color: $ho-blu;
+  height: 50px;
+
+  a {
+    color: $ho-blu;
+  }
+
+  .navbar-collapse {
+    li:hover {
+      background: #3f474e;
     }
+
+    &.show {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      left: 0;
+      top: 50px;
+
+      a {
+        margin-left: 17px;
+      }
+    }
+  }
 }

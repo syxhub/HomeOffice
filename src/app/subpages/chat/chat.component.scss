@@ -1,0 +1,13 @@
+:host {
+  display: inline-flex;
+
+  ho-chat-list {
+    width: 25%;
+    background: darkslategray;
+  }
+
+  ho-chat-board {
+    width: 75%;
+    background: lightgrey;
+  }
+}

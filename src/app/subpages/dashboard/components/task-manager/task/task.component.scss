@@ -1,0 +1,41 @@
+@import './../../../../../../_variables.scss';
+.task-title {
+    margin: -1px 0;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+.grab {
+    height: 26px;
+    margin: 2px;
+    padding: 0;
+}
+
+.gu-mirror {
+    cursor: grab;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: opacity 0.4s ease-in-out;
+}
+
+.gu-transit {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.gu-mirror {
+    position: fixed!important;
+    margin: 0!important;
+    z-index: 9999!important;
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80)
+}
+
+.gu-hide {
+    display: none!important
+}
