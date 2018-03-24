@@ -1,8 +1,8 @@
-<div *ngIf="activeChatRoom">
+<div *ngIf="messages">
   <div class="room-name">{{roomName}}</div>
-  <div *ngFor="let message of activeChatRoom.messages">
-    <div class="message" [ngClass]="{'left': message.sentBy !== 'Me', 'right': message.sentBy === 'Me'}">
-      <ho-message [messageText]="message.text"></ho-message>
+  <div *ngFor="let message of messages">
+    <div class="message" [ngClass]="{'left': message.sentBy !== me, 'right': message.sentBy === me}">
+      <ho-message [messageText]="message?.text"></ho-message>
     </div>
   </div>
   <input type="text" #userInput [(ngModel)]="singleText" (keyup.enter)="sendMessage()" autofocus>

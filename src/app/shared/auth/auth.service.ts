@@ -4,7 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { ToastrService } from '../../layout/toastr.service';
 import { FirstLoginComponent } from '../../subpages/dashboard/first-login/first-login.component';
@@ -15,7 +17,7 @@ import { DatabaseService } from './../database/database.service';
 export class AuthService {
 
   public token: string;
-  loggedIn: BehaviorSubject<boolean>;
+  user: Observable<firebase.User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -25,9 +27,10 @@ export class AuthService {
     private toast: ToastrService,
     private translate: TranslateService
   ) {
+    this.user = afAuth.authState;
     this.token = localStorage.getItem('token');
-    this.loggedIn = new BehaviorSubject<boolean>(this.isLoggedInByToken());
   }
+
 
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
@@ -36,7 +39,7 @@ export class AuthService {
           .subscribe(message => {
             this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
           });
-        this.router.navigate(['login']);
+        this.router.navigate(['']);
       })
       .catch(err => {
         console.log(err);
@@ -49,7 +52,7 @@ export class AuthService {
   login(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user => {
-        this.loggedIn.next(true);
+        this.user = user;
         this.router.navigate(['dashboard']);
         this.setToken();
         setTimeout(() => {
@@ -77,29 +80,17 @@ export class AuthService {
 
   logout() {
     this.token = null;
+    this.user = undefined;
     localStorage.removeItem('token');
     this.afAuth.auth.signOut();
-    this.loggedIn.next(false);
   }
 
   getCurrentUser() {
     return this.afAuth.auth.currentUser;
   }
 
-  isLoggedIn() {
-    return this.afAuth.authState;
-  }
-
-  isLoggedInByToken() {
-    return tokenNotExpired();
-  }
-
   isUserNameSet() {
     return this.getCurrentUser().displayName;
-  }
-
-  getToken() {
-
   }
 
   setToken() {

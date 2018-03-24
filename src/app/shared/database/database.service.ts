@@ -1,9 +1,7 @@
-import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { User } from 'firebase/app';
 
-import { ChatMessage, ChatRoom } from './../../model/chat.model';
+import { ChatMessage } from './../../model/chat.model';
 
 
 @Injectable()
@@ -24,12 +22,18 @@ export class DatabaseService {
   }
 
   getChatRooms() {
-    const chatRooms = this.db.list('chat/rooms');
+    const chatRooms = this.db.list('chatDTO/rooms');
     return chatRooms.snapshotChanges();
   }
 
-  getMessages() {
+  getUsers() {
+    const users = this.db.list('chatDTO/users');
+    return users.snapshotChanges();
+  }
 
+  getMessages(roomName: string) {
+    const messages = this.db.list(`chatDTO/chatHistory/` + roomName + '/messages');
+    return messages.snapshotChanges();
   }
 
   getMyChatRooms() {
@@ -37,14 +41,8 @@ export class DatabaseService {
     return chatRooms.snapshotChanges();
   }
 
-  getUsers() {
-    const users = this.db.object('users/');
-    return users.valueChanges();
+  sendMessageToChatRoom(message: ChatMessage, roomName: string) {
+    const chatRoom = this.db.list('chatDTO/chatHistory/' + roomName + '/messages');
+    chatRoom.push(message);
   }
-
-  sendMessageToChatRoom(message: ChatMessage, room: ChatRoom) {
-    const chatRoom = this.db.list('chat/rooms/' + Object.keys(room)[0] + '/messages');
-    chatRoom.push({ text: message.text, sentAt: Date.now(), sentBy: message.sentBy });
-  }
-
 }

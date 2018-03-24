@@ -1,7 +1,7 @@
-import { ChatRoom } from './../../../model/chat.model';
 import { Component, OnInit } from '@angular/core';
 
 import { ChatService } from '../chat.service';
+import { ChatMessage, ChatRoom } from './../../../model/chat.model';
 
 @Component({
   selector: 'ho-chat-board',
@@ -10,22 +10,31 @@ import { ChatService } from '../chat.service';
 })
 export class ChatBoardComponent implements OnInit {
 
-  activeChatRoom: ChatRoom;
+  chatRoomData: ChatRoom;
+  messages = new Array<ChatMessage>();
   roomName = '';
   singleText = '';
+  me: string;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
     this.chatService.getActiveChatRoom()
       .subscribe(room => {
-        this.roomName = Object.keys(room)[0];
-        this.activeChatRoom = room[this.roomName];
+        this.roomName = room;
+        this.chatService.getMessages(room)
+          .subscribe(messages => {
+            this.messages = [];
+            messages.map(message => {
+              this.messages.push(message.payload.val());
+            });
+          });
       });
+    this.me = this.chatService.getCurrentUser();
   }
 
   sendMessage() {
-    console.log(this.singleText);
+    this.chatService.sendMessage(this.singleText, this.roomName);
     this.singleText = '';
   }
 }

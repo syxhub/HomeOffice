@@ -2,18 +2,18 @@
   <a class="navbar-brand">HomeOffice</a>
 
   <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" [attr.aria-expanded]="!isNavbarCollapsed"
-    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="isLoggedIn">
+    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="user">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div [ngbCollapse]="isNavbarCollapsed" class="navbar-collapse bg-dark" *ngIf="isLoggedIn">
+  <div [ngbCollapse]="isNavbarCollapsed" class="navbar-collapse bg-dark" *ngIf="user">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" (click)="isNavbarCollapsed = true">
         <a class="nav-link" href="#" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
       </li>
-      <li class="nav-item" (click)="isNavbarCollapsed = true">
+      <!-- <li class="nav-item" (click)="isNavbarCollapsed = true">
         <a class="nav-link" href="#" routerLink="scrum-board" routerLinkActive="active">Scrum</a>
-      </li>
+      </li> -->
       <li class="nav-item" (click)="isNavbarCollapsed = true">
         <a class="nav-link" href="#" routerLink="chat" routerLinkActive="active">Chat</a>
       </li>

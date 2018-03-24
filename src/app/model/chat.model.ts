@@ -10,6 +10,7 @@ export interface ChatRoomData {
 }
 
 export interface ChatMessage {
-  sentBy: User;
+  sentBy: string;
+  sentAt: number;
   text: string;
 }

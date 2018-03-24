@@ -1,3 +1,4 @@
+import * as firebase from 'firebase/app';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,7 +12,7 @@ import { AuthService } from './../../shared/auth/auth.service';
 export class NavbarComponent implements OnInit {
 
   isNavbarCollapsed = true;
-  isLoggedIn;
+  user: firebase.User;
 
   constructor(
     private authService: AuthService,
@@ -19,9 +20,9 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.loggedIn
-      .subscribe(isLoggedIn => {
-        this.isLoggedIn = isLoggedIn;
+    this.authService.user
+      .subscribe(user => {
+        this.user = user;
       });
   }
 

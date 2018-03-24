@@ -12,15 +12,15 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'scrum-board',
-    component: ScrumBoardComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'scrum-board',
+  //   component: ScrumBoardComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'chat',
     component: ChatComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ];
 

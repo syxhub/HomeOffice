@@ -21,40 +21,31 @@ export class ChatListComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    private dataBase: DatabaseService,
     private http: HttpClient
   ) { }
 
   ngOnInit() {
-    // this.dataBase.getChatRooms()
-    //   .subscribe(chatRooms => {
-    //     chatRooms.map(room => this.chatRooms.push(room.key));
-    //     this.activeChatRoom = this.chatRooms[0];
-    //   });
+    this.chatService.getChatRooms()
+      .subscribe(chatRooms => {
+        chatRooms.map(room => {
+          this.chatRooms.push(room.payload.val());
+        });
+      });
+    this.chatService.getUsers()
+      .subscribe(users => {
+        this.userList = [];
+        users.map(user => {
+          this.userList.push(user.payload.val());
+        });
+      });
     // this.dataBase.getMyChatRooms()
     //   .subscribe(chatRooms => {
     //     chatRooms.map(room => console.log(room.key));
     //   });
-    // this.dataBase.getUsers()
-    //   .subscribe(users => {
-    //     Object.keys(users)
-    //       .forEach(user =>
-    //         this.userList.push(users[user].name)
-    //       );
-    //   });
-
-    this.http.get('./../../assets/mock/chat.json')
-      .subscribe(chatRooms => {
-        this.chatRoomData = chatRooms;
-      });
-    this.myPrivateChats = ['Some User 1', 'Some User 2', 'Some User 3'];
   }
 
-  getRoomName(room: Object) {
-    return Object.keys(room);
-  }
-
-  setActiveChatRoom(room: Object) {
+  setActiveChatRoom(room: string) {
+    this.activeChatRoom = room;
     this.chatService.setActiveChatRoom(room);
   }
 }
