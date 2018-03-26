@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { tokenNotExpired } from 'angular2-jwt';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { ToastrService } from '../../layout/toastr.service';
@@ -21,7 +19,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private dataBase: DatabaseService,
+    private database: DatabaseService,
     private modalService: NgbModal,
     private router: Router,
     private toast: ToastrService,
@@ -43,9 +41,10 @@ export class AuthService {
       })
       .catch(err => {
         console.log(err);
-        this.translate.get('message.alert.registrationFailed').subscribe(failed =>
-          this.toast.showToast(`warning`, failed, err)
-        );
+        this.translate.get('message.alert.registrationFailed')
+          .subscribe(failed =>
+            this.toast.showToast(`warning`, failed, err)
+          );
       });
   }
 
@@ -60,7 +59,7 @@ export class AuthService {
             const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
               .result.then(userName => {
                 this.setUserName(userName);
-                this.dataBase.createDatabaseForUser(this.afAuth.auth.currentUser.uid, userName);
+                this.database.createDatabaseForUser(this.afAuth.auth.currentUser.uid, userName);
               });
           } else {
             const userName = this.getCurrentUser().displayName;
@@ -73,8 +72,9 @@ export class AuthService {
       })
       .catch(err => {
         console.log(err);
-        this.translate.get('message.alert.loginFailed').subscribe(failed =>
-          this.toast.showToast(`warning`, failed, err));
+        this.translate.get('message.alert.loginFailed')
+          .subscribe(failed =>
+            this.toast.showToast(`warning`, failed, err));
       });
   }
 
@@ -103,6 +103,7 @@ export class AuthService {
   }
 
   setUserName(userName: string) {
-    this.afAuth.auth.currentUser.updateProfile({ displayName: userName, photoURL: null });
+    this.afAuth.auth.currentUser
+      .updateProfile({ displayName: userName, photoURL: null });
   }
 }

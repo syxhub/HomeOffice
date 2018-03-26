@@ -22,4 +22,8 @@
       </li>
     </ul>
   </div>
+
+  <div *ngIf="user">
+    <span class="welcome">Logged in as '{{user?.displayName}}'</span>
+  </div>
 </nav>

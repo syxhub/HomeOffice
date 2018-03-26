@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { ChatMessage } from './../../model/chat.model';
+import { Task } from '../../model/task.model';
 
 
 @Injectable()
@@ -39,6 +40,16 @@ export class DatabaseService {
   getMyChatRooms() {
     const chatRooms = this.db.list('chat/rooms');
     return chatRooms.snapshotChanges();
+  }
+
+  getTaskList(uid: string) {
+    const taskList = this.db.list('users/' + uid + '/taskList');
+    return taskList.snapshotChanges();
+  }
+
+  modifyTaskList(uid: string, tasks: Task[]) {
+    const taskList = this.db.object('users/' + uid);
+    taskList.set({taskList: tasks});
   }
 
   sendMessageToChatRoom(message: ChatMessage, roomName: string) {

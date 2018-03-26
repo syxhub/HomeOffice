@@ -10,6 +10,10 @@
 
 .table {
     width: inherit;
+
+    thead {
+        overflow: auto;
+    }
 }
 
 .title-row {
