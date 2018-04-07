@@ -12,11 +12,6 @@ export class DatabaseService {
     private db: AngularFireDatabase
   ) { }
 
-  createDatabaseForUser(uid: string, userName: string) {
-    const user = this.db.object('users/' + uid);
-    user.set({ name: userName });
-  }
-
   deleteUser(uid: string) {
     const user = this.db.object('users/' + uid);
     user.remove();

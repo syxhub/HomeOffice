@@ -34,8 +34,9 @@
       
       ho-message {
         height: 30px;
+        display: table;
+        padding: 0 8px;
         max-width: 60%;
-        padding: 6px 12px;
         line-height: 30px;
         border-radius: 5px;
         background-color: teal;

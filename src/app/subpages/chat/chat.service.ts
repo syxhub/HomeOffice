@@ -8,7 +8,6 @@ import { DatabaseService } from './../../shared/database/database.service';
 @Injectable()
 export class ChatService {
 
-  me: string;
   activeChatRoom = new Subject<string>();
 
   constructor(
@@ -32,17 +31,8 @@ export class ChatService {
     return this.dateBase.getUsers();
   }
 
-  getCurrentUser() {
-    if (this.me) {
-      return this.me;
-    } else {
-      this.me = this.authService.getCurrentUser().displayName;
-      return this.authService.getCurrentUser().displayName;
-    }
-  }
-
-  sendMessage(message: string, roomName: string) {
-    const newMessage = { text: message, sentAt: Date.now(), sentBy: this.getCurrentUser() };
+  sendMessage(text: string, roomName: string, sentBy: string) {
+    const newMessage = { text, sentAt: Date.now(), sentBy};
     return this.dateBase.sendMessageToChatRoom(newMessage, roomName);
   }
 

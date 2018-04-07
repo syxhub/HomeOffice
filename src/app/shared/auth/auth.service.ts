@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +16,7 @@ import { DatabaseService } from './../database/database.service';
 export class AuthService {
 
   public token: string;
-  user: Observable<firebase.User>;
+  user: Subject<firebase.User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -25,7 +26,10 @@ export class AuthService {
     private toast: ToastrService,
     private translate: TranslateService
   ) {
-    this.user = afAuth.authState;
+    afAuth.authState.subscribe(user => {
+      this.user = new Subject();
+      this.user.next(user);
+    });
     this.token = localStorage.getItem('token');
   }
 
@@ -33,8 +37,8 @@ export class AuthService {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
         this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(newUser.email, newUser.password)
-          .then(() => {
-            this.afAuth.auth.currentUser.sendEmailVerification()
+          .then(response => {
+            response.user.sendEmailVerification()
               .then(() => {
                 this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
                   .subscribe(message => {
@@ -56,19 +60,17 @@ export class AuthService {
   login(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user => {
-        this.user = user;
+        this.user.next(user);
         this.router.navigate(['dashboard']);
         this.setToken();
         setTimeout(() => {
-          if (!this.isUserNameSet()) {
+          if (!user.displayName) {
             const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
               .result.then(userName => {
-                this.setUserName(userName);
-                this.database.createDatabaseForUser(this.afAuth.auth.currentUser.uid, userName);
+                user.updateProfile({ displayName: userName });
               });
           } else {
-            const userName = this.getCurrentUser().displayName;
-            this.translate.get('message.info.welcomeBack', { userName: userName })
+            this.translate.get('message.info.welcomeBack', { userName: user.displayName })
               .subscribe(welcome =>
                 this.toast.showToast(`info`, ``, welcome)
               );
@@ -85,17 +87,13 @@ export class AuthService {
 
   logout() {
     this.token = null;
-    this.user = undefined;
+    this.user.next(null);
     localStorage.removeItem('token');
     this.afAuth.auth.signOut();
   }
 
   getCurrentUser() {
-    return this.afAuth.auth.currentUser;
-  }
-
-  isUserNameSet() {
-    return this.getCurrentUser().displayName;
+    return this.afAuth.authState;
   }
 
   setToken() {
@@ -105,10 +103,5 @@ export class AuthService {
         localStorage.setItem('token', token);
         localStorage.setItem('homeOfficeUser', this.afAuth.auth.currentUser.displayName);
       });
-  }
-
-  setUserName(userName: string) {
-    this.afAuth.auth.currentUser
-      .updateProfile({ displayName: userName, photoURL: null });
   }
 }

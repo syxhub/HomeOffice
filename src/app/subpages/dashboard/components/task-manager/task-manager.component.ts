@@ -28,9 +28,15 @@ export class TaskManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.user.subscribe(user => {
+    this.auth.getCurrentUser().subscribe(user => {
       this.uid = user.uid;
-      this.getTaskList(user.uid);
+      this.database.getTaskList(user.uid)
+        .subscribe(tasks => {
+          this.tasks = [];
+          tasks.map(task => {
+            this.tasks.push(task.payload.val());
+          });
+        });
     });
   }
 
@@ -43,16 +49,6 @@ export class TaskManagerComponent implements OnInit {
       })
       .catch(reason => {
         this.toast.showToast(`warning`, 'Task', 'Task creation has been cancelled!');
-      });
-  }
-
-  getTaskList(uid: string) {
-    this.database.getTaskList(uid)
-      .subscribe(tasks => {
-        this.tasks = [];
-        tasks.map(task => {
-          this.tasks.push(task.payload.val());
-        });
       });
   }
 
