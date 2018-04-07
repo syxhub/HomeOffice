@@ -1,4 +1,5 @@
 :host {
+  height: 90%;
   display: inline-flex;
 
   ho-chat-list {
@@ -8,6 +9,8 @@
 
   ho-chat-board {
     width: 75%;
+    display: flex;
+    flex-direction: column;
     background: lightgrey;
   }
 }

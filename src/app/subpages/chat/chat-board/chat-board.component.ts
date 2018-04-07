@@ -34,7 +34,9 @@ export class ChatBoardComponent implements OnInit {
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.singleText, this.roomName);
+    if (this.singleText.trim() !== '') {
+      this.chatService.sendMessage(this.singleText, this.roomName);
+    }
     this.singleText = '';
   }
 }
