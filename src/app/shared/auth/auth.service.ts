@@ -29,18 +29,23 @@ export class AuthService {
     this.token = localStorage.getItem('token');
   }
 
-
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
-        this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
-          .subscribe(message => {
-            this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
+        this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(newUser.email, newUser.password)
+          .then(() => {
+            this.afAuth.auth.currentUser.sendEmailVerification()
+              .then(() => {
+                this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
+                  .subscribe(message => {
+                    this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
+                    this.logout();
+                    this.router.navigate(['']);
+                  });
+              });
           });
-        this.router.navigate(['']);
       })
       .catch(err => {
-        console.log(err);
         this.translate.get('message.alert.registrationFailed')
           .subscribe(failed =>
             this.toast.showToast(`warning`, failed, err)

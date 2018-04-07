@@ -42,7 +42,6 @@ export class TaskManagerComponent implements OnInit {
         this.toast.showToast(`success`, 'Task', 'Task has been successfully created!');
       })
       .catch(reason => {
-        console.log('Task creation has been cancelled.');
         this.toast.showToast(`warning`, 'Task', 'Task creation has been cancelled!');
       });
   }
