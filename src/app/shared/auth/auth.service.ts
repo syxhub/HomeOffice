@@ -41,8 +41,8 @@ export class AuthService {
             response.user.sendEmailVerification()
               .then(() => {
                 this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
-                  .subscribe(message => {
-                    this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
+                  .subscribe(messages => {
+                    this.toast.showToast(`success`, messages[Object.keys(messages)[0]], messages[Object.keys(messages)[1]]);
                     this.logout();
                     this.router.navigate(['']);
                   });

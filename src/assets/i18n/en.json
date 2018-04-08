@@ -51,7 +51,11 @@
     },
     "success": {
       "registrationSuccess": "Registration Success",
-      "verificationEmailSent": "A verification email has been sent to the given email address."
+      "verificationEmailSent": "A verification email has been sent to the given email address.",
+      "editorSuccess": "Coop-Edit",
+      "editorCopyId": "Editor ID has been successfully copied to your clipboard!",
+      "editorCreation": "Editor has been successfully created!",
+      "editorJoin": "Successfully joined to an existing Editor!"
     }
   }
 }

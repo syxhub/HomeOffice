@@ -34,10 +34,26 @@
   }
 }
 
+.editor {
+  flex: auto;
+  width: 100%;
+  resize: none;
+  padding: 8px;
+}
+
 .empty {
     margin: auto;
     display: flex;
     padding: 42px;
+    text-align: center;
     flex-direction: column;
     box-shadow: 0 1px 3px 0 grey;
+
+    button {
+      margin-bottom: 12px;
+    }
+
+    input {
+      margin-top: 12px;
+    }
 }

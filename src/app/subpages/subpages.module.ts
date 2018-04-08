@@ -15,7 +15,6 @@ import { ScrumBoardComponent } from './scrum-board/scrum-board.component';
 import { SubpagesRoutingModule } from './subpages-routing.module';
 import { CreateTaskComponent } from './dashboard/components/task-manager/create-task/create-task.component';
 import { CoopEditComponent } from './dashboard/components/coop-edit/coop-edit.component';
-import { EditorComponent } from './dashboard/components/coop-edit/editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +29,7 @@ import { EditorComponent } from './dashboard/components/coop-edit/editor/editor.
     TaskManagerComponent,
     TaskComponent,
     CreateTaskComponent,
-    CoopEditComponent,
-    EditorComponent
+    CoopEditComponent
   ],
   imports: [
     SharedModule,

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -11,6 +12,22 @@ export class DatabaseService {
   constructor(
     private db: AngularFireDatabase
   ) { }
+
+  createEditor(id: string) {
+    const editor = this.db.object('coop-edit/' + id);
+    editor.set({ value: '' });
+    return editor.valueChanges();
+  }
+
+  getEditor(id: string) {
+    const editor = this.db.object('coop-edit/' + id);
+    return editor.snapshotChanges();
+  }
+
+  updateEditorText(id: string, value: string) {
+    const editor = this.db.object('coop-edit/' + id);
+    editor.set({ value });
+  }
 
   deleteUser(uid: string) {
     const user = this.db.object('users/' + uid);
@@ -44,7 +61,7 @@ export class DatabaseService {
 
   modifyTaskList(uid: string, tasks: Task[]) {
     const taskList = this.db.object('users/' + uid);
-    taskList.set({taskList: tasks});
+    taskList.set({ taskList: tasks });
   }
 
   sendMessageToChatRoom(message: ChatMessage, roomName: string) {

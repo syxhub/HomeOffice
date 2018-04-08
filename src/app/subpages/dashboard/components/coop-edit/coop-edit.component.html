@@ -9,14 +9,14 @@
 </div>
 
 <ng-container *ngIf="id.length">
-  <ho-editor></ho-editor>
+  <textarea class="editor" [(ngModel)]="editorText" (keyup)="change()"></textarea>
 </ng-container>
 
 <ng-container *ngIf="!id.length">
   <div class="empty">
-    <button translate>dashboard.coopEdit.create</button>
+    <button (click)="createEditor()" translate>dashboard.coopEdit.create</button>
     <span translate>dashboard.coopEdit.join</span>
     <span translate>dashboard.coopEdit.enterId</span>
-    <input type="text">
+    <input type="text" [(ngModel)]="editorToJoin" (keyup)="getEditor($event)">
   </div>
 </ng-container>
