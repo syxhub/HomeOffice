@@ -9,7 +9,12 @@
 }
 
 .table {
+    margin: 0px;
     width: inherit;
+
+    thead {
+        overflow: auto;
+    }
 }
 
 .title-row {

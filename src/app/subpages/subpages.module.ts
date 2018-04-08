@@ -7,13 +7,14 @@ import { ChatListComponent } from './chat/chat-list/chat-list.component';
 import { RoomComponent } from './chat/chat-list/room/room.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './chat/chat.service';
-import { YoutubeComponent } from './dashboard/components/youtube/youtube.component';
+import { TaskManagerComponent } from './dashboard/components/task-manager/task-manager.component';
+import { TaskComponent } from './dashboard/components/task-manager/task/task.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FirstLoginComponent } from './dashboard/first-login/first-login.component';
 import { ScrumBoardComponent } from './scrum-board/scrum-board.component';
 import { SubpagesRoutingModule } from './subpages-routing.module';
-import { TaskManagerComponent } from './dashboard/components/task-manager/task-manager.component';
-import { TaskComponent } from './dashboard/components/task-manager/task/task.component';
+import { CreateTaskComponent } from './dashboard/components/task-manager/create-task/create-task.component';
+import { CoopEditComponent } from './dashboard/components/coop-edit/coop-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,10 @@ import { TaskComponent } from './dashboard/components/task-manager/task/task.com
     ChatBoardComponent,
     MessageComponent,
     RoomComponent,
-    YoutubeComponent,
     TaskManagerComponent,
-    TaskComponent
+    TaskComponent,
+    CreateTaskComponent,
+    CoopEditComponent
   ],
   imports: [
     SharedModule,
@@ -36,6 +38,7 @@ import { TaskComponent } from './dashboard/components/task-manager/task/task.com
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     ChatService
-  ]
+  ],
+  entryComponents: [CreateTaskComponent]
 })
 export class SubpagesModule { }

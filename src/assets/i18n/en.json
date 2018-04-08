@@ -16,6 +16,24 @@
       "passwordAgain": "Password again"
     }
   },
+  "dashboard": {
+    "coopEdit": {
+      "title": "Coop-Edit",
+      "editorId": "Editor ID:",
+      "create": "Create Editor",
+      "join": "Or Join Another",
+      "enterId": "Please enter the Editor ID:"
+    },
+    "taskManager": {
+      "title": "Tasks",
+      "modal": {
+        "title": "Create Task",
+        "taskTitle": "Title",
+        "taskDescritiption": "Description",
+        "submit": "Create"
+      }
+    }
+  },
   "chat": {
     "list": {
       "people": "People",
@@ -33,7 +51,11 @@
     },
     "success": {
       "registrationSuccess": "Registration Success",
-      "verificationEmailSent": "A verification email has been sent to the given email address."
+      "verificationEmailSent": "A verification email has been sent to the given email address.",
+      "editorSuccess": "Coop-Edit",
+      "editorCopyId": "Editor ID has been successfully copied to your clipboard!",
+      "editorCreation": "Editor has been successfully created!",
+      "editorJoin": "Successfully joined to an existing Editor!"
     }
   }
 }

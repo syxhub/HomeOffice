@@ -1,3 +1,4 @@
+import { AuthService } from './../../../shared/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 import { ChatService } from '../chat.service';
@@ -16,7 +17,10 @@ export class ChatBoardComponent implements OnInit {
   singleText = '';
   me: string;
 
-  constructor(private chatService: ChatService) { }
+  constructor(
+    private auth: AuthService,
+    private chatService: ChatService
+  ) { }
 
   ngOnInit() {
     this.chatService.getActiveChatRoom()
@@ -30,11 +34,16 @@ export class ChatBoardComponent implements OnInit {
             });
           });
       });
-    this.me = this.chatService.getCurrentUser();
+    this.auth.getCurrentUser()
+      .subscribe(user => {
+        this.me = user.displayName;
+      });
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.singleText, this.roomName);
+    if (this.singleText.trim() !== '') {
+      this.chatService.sendMessage(this.singleText, this.roomName, this.me);
+    }
     this.singleText = '';
   }
 }

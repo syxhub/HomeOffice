@@ -1,33 +1,46 @@
+:host {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .room-name {
   width: 100%;
   text-align: center;
   background: lightcyan;
 }
 
-.message {
-  width: 100%;
+
+.board {
   display: flex;
-  padding: 5px;
+  overflow: auto;
+  flex-direction: column-reverse;
 
-  &.left {
-    justify-content: flex-start;
+  .wrapper {
+    flex-direction: column-reverse;
+
+    .message {
+      width: 100%;
+      padding: 5px;
+      display: -webkit-inline-box;
+      
+      &.left {
+        justify-content: flex-start;
+      }
+      
+      &.right {
+        justify-content: flex-end;
+      }
+      
+      ho-message {
+        height: 30px;
+        display: table;
+        padding: 0 8px;
+        max-width: 60%;
+        line-height: 30px;
+        border-radius: 5px;
+        background-color: teal;
+      }
+    }
   }
-
-  &.right {
-    justify-content: flex-end;
-  }
-
-  ho-message {
-    height: 30px;
-    background-color: teal;
-    border-radius: 5px;
-    line-height: 30px;
-    padding: 0 8px;
-  }
-}
-
-input {
-  width: 75%;
-  bottom: 0;
-  position: absolute;
 }

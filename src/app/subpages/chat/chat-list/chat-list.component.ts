@@ -38,10 +38,6 @@ export class ChatListComponent implements OnInit {
           this.userList.push(user.payload.val());
         });
       });
-    // this.dataBase.getMyChatRooms()
-    //   .subscribe(chatRooms => {
-    //     chatRooms.map(room => console.log(room.key));
-    //   });
   }
 
   setActiveChatRoom(room: string) {

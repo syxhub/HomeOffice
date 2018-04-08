@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h2>Create task</h2>
+</div>
+<div class="modal-body">
+  <div>
+    <label>Title</label>
+    <input type="text" name="title" [(ngModel)]="task.title" autofocus>
+  </div>
+  <div>
+    <label>Description</label>
+    <textarea type="text" name="description" [(ngModel)]="task.description"></textarea>
+  </div>
+</div>
+<div class="modal-footer justify-content-around">
+  <button type="submit" class="btn btn-modal btn-primary" (click)="createTask()">Create</button>
+</div>

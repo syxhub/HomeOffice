@@ -1,9 +1,13 @@
-<div *ngIf="messages">
+<ng-container *ngIf="messages.length">
   <div class="room-name">{{roomName}}</div>
-  <div *ngFor="let message of messages">
-    <div class="message" [ngClass]="{'left': message.sentBy !== me, 'right': message.sentBy === me}">
-      <ho-message [messageText]="message?.text"></ho-message>
+  <div class="board">
+    <div class="wrapper">
+      <ng-container *ngFor="let message of messages">
+        <div class="message" [ngClass]="{'left': message.sentBy !== me, 'right': message.sentBy === me}">
+          <ho-message [messageText]="message?.text"></ho-message>
+        </div>
+      </ng-container>
     </div>
   </div>
   <input type="text" #userInput [(ngModel)]="singleText" (keyup.enter)="sendMessage()" autofocus>
-</div>
+</ng-container>

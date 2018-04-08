@@ -1,11 +1,10 @@
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { tokenNotExpired } from 'angular2-jwt';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { ToastrService } from '../../layout/toastr.service';
@@ -17,54 +16,61 @@ import { DatabaseService } from './../database/database.service';
 export class AuthService {
 
   public token: string;
-  user: Observable<firebase.User>;
+  user: Subject<firebase.User>;
 
   constructor(
     private afAuth: AngularFireAuth,
-    private dataBase: DatabaseService,
+    private database: DatabaseService,
     private modalService: NgbModal,
     private router: Router,
     private toast: ToastrService,
     private translate: TranslateService
   ) {
-    this.user = afAuth.authState;
+    afAuth.authState.subscribe(user => {
+      this.user = new Subject();
+      this.user.next(user);
+    });
     this.token = localStorage.getItem('token');
   }
-
 
   signUp(newUser: UserToSignUp) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
-        this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
-          .subscribe(message => {
-            this.toast.showToast(`success`, message[Object.keys(message)[0]], message[Object.keys(message)[1]]);
+        this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(newUser.email, newUser.password)
+          .then(response => {
+            response.user.sendEmailVerification()
+              .then(() => {
+                this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
+                  .subscribe(messages => {
+                    this.toast.showToast(`success`, messages[Object.keys(messages)[0]], messages[Object.keys(messages)[1]]);
+                    this.logout();
+                    this.router.navigate(['']);
+                  });
+              });
           });
-        this.router.navigate(['']);
       })
       .catch(err => {
-        console.log(err);
-        this.translate.get('message.alert.registrationFailed').subscribe(failed =>
-          this.toast.showToast(`warning`, failed, err)
-        );
+        this.translate.get('message.alert.registrationFailed')
+          .subscribe(failed =>
+            this.toast.showToast(`warning`, failed, err)
+          );
       });
   }
 
   login(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user => {
-        this.user = user;
+        this.user.next(user);
         this.router.navigate(['dashboard']);
         this.setToken();
         setTimeout(() => {
-          if (!this.isUserNameSet()) {
+          if (!user.displayName) {
             const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
               .result.then(userName => {
-                this.setUserName(userName);
-                this.dataBase.createDatabaseForUser(this.afAuth.auth.currentUser.uid, userName);
+                user.updateProfile({ displayName: userName });
               });
           } else {
-            const userName = this.getCurrentUser().displayName;
-            this.translate.get('message.info.welcomeBack', { userName: userName })
+            this.translate.get('message.info.welcomeBack', { userName: user.displayName })
               .subscribe(welcome =>
                 this.toast.showToast(`info`, ``, welcome)
               );
@@ -73,24 +79,21 @@ export class AuthService {
       })
       .catch(err => {
         console.log(err);
-        this.translate.get('message.alert.loginFailed').subscribe(failed =>
-          this.toast.showToast(`warning`, failed, err));
+        this.translate.get('message.alert.loginFailed')
+          .subscribe(failed =>
+            this.toast.showToast(`warning`, failed, err));
       });
   }
 
   logout() {
     this.token = null;
-    this.user = undefined;
+    this.user.next(null);
     localStorage.removeItem('token');
     this.afAuth.auth.signOut();
   }
 
   getCurrentUser() {
-    return this.afAuth.auth.currentUser;
-  }
-
-  isUserNameSet() {
-    return this.getCurrentUser().displayName;
+    return this.afAuth.authState;
   }
 
   setToken() {
@@ -100,9 +103,5 @@ export class AuthService {
         localStorage.setItem('token', token);
         localStorage.setItem('homeOfficeUser', this.afAuth.auth.currentUser.displayName);
       });
-  }
-
-  setUserName(userName: string) {
-    this.afAuth.auth.currentUser.updateProfile({ displayName: userName, photoURL: null });
   }
 }

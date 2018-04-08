@@ -1,10 +1,27 @@
-.tasks {
-    right: 0;
-    height: 100%;
-    position: absolute;
+:host {
+    flex: auto;
+    display: flex;
+}
 
-    ho-task-manager {
-        display: flex;
-        height: 100%;
+.dashboard-wrapper {
+    flex: auto;
+    display: flex;
+
+    .editor,
+    .tasks {
+        margin: 4px;
+    }
+
+    .editor {
+        width: 100%;
+    }
+
+    .tasks {
+        margin-left: auto;
+
+        ho-task-manager {
+            height: 100%;
+            display: flex;
+        }
     }
 }

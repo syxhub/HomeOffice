@@ -1,0 +1,21 @@
+.modal-body {
+    height: 200px;
+
+    div {
+        width: 100%;
+        display: flex;
+        margin-top: 20px;
+
+        input,
+        textarea {
+            width: 75%;
+            right: 15px;
+            position: absolute;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+    }
+}
