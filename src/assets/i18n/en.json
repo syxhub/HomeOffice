@@ -16,6 +16,24 @@
       "passwordAgain": "Password again"
     }
   },
+  "dashboard": {
+    "coopEdit": {
+      "title": "Coop-Edit",
+      "editorId": "Editor ID:",
+      "create": "Create Editor",
+      "join": "Or Join Another",
+      "enterId": "Please enter the Editor ID:"
+    },
+    "taskManager": {
+      "title": "Tasks",
+      "modal": {
+        "title": "Create Task",
+        "taskTitle": "Title",
+        "taskDescritiption": "Description",
+        "submit": "Create"
+      }
+    }
+  },
   "chat": {
     "list": {
       "people": "People",

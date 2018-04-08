@@ -9,7 +9,4 @@
     width: 100%;
     min-height: calc(100% - 50px);
   }
-  /deep/ router-outlet + ho-dashboard {
-    position: inherit;
-  }
 }

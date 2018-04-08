@@ -1,0 +1,22 @@
+<div class="header">
+  <div class="title">
+    <span translate>dashboard.coopEdit.title</span>
+  </div>
+  <div class="editor-id" *ngIf="id">
+    <span translate>dashboard.coopEdit.editorId</span>
+    <button (click)="copyIdToClipboard()" class="id">{{id}}</button>
+  </div>
+</div>
+
+<ng-container *ngIf="id.length">
+  <ho-editor></ho-editor>
+</ng-container>
+
+<ng-container *ngIf="!id.length">
+  <div class="empty">
+    <button translate>dashboard.coopEdit.create</button>
+    <span translate>dashboard.coopEdit.join</span>
+    <span translate>dashboard.coopEdit.enterId</span>
+    <input type="text">
+  </div>
+</ng-container>
