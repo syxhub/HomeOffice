@@ -17,15 +17,16 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    return this.authService.getCurrentUser().map(user => {
-      if (user) {
-        return true;
-      } else {
-        this.authService.user = undefined;
-        this.router.navigate(['']);
-        return false;
-      }
-    });
+    return this.authService.isLoggedIn()
+      .map(user => {
+        if (user) {
+          return true;
+        } else {
+          this.authService.user = undefined;
+          this.router.navigate(['']);
+          return false;
+        }
+      });
   }
 }
 
@@ -39,13 +40,14 @@ export class LoginGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    return this.authService.getCurrentUser().map(user => {
-      if (user) {
-        this.router.navigate(['dashboard']);
-        return false;
-      } else {
-        return true;
-      }
-    });
+    return this.authService.isLoggedIn()
+      .map(user => {
+        if (user) {
+          this.router.navigate(['dashboard']);
+          return false;
+        } else {
+          return true;
+        }
+      });
   }
 }

@@ -18,7 +18,7 @@ export class ChatBoardComponent implements OnInit {
   me: string;
 
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
     private chatService: ChatService
   ) { }
 
@@ -34,7 +34,7 @@ export class ChatBoardComponent implements OnInit {
             });
           });
       });
-    this.auth.getCurrentUser()
+    this.authService.user
       .subscribe(user => {
         this.me = user.displayName;
       });

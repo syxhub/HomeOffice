@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ToastrService } from '../../layout/toastr.service';
 import { FirstLoginComponent } from '../../subpages/dashboard/first-login/first-login.component';
 import { UserToSignUp } from './../../model/user.model';
@@ -15,8 +15,7 @@ import { DatabaseService } from './../database/database.service';
 @Injectable()
 export class AuthService {
 
-  public token: string;
-  user: Subject<firebase.User>;
+  user: BehaviorSubject<firebase.User> = new BehaviorSubject(undefined);
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -27,10 +26,8 @@ export class AuthService {
     private translate: TranslateService
   ) {
     afAuth.authState.subscribe(user => {
-      this.user = new Subject();
       this.user.next(user);
     });
-    this.token = localStorage.getItem('token');
   }
 
   signUp(newUser: UserToSignUp) {
@@ -38,12 +35,12 @@ export class AuthService {
       .then(() => {
         this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(newUser.email, newUser.password)
           .then(response => {
+            this.logout();
             response.user.sendEmailVerification()
               .then(() => {
                 this.translate.get(['message.success.registrationSuccess', 'message.success.verificationEmailSent'])
                   .subscribe(messages => {
                     this.toast.showToast(`success`, messages[Object.keys(messages)[0]], messages[Object.keys(messages)[1]]);
-                    this.logout();
                     this.router.navigate(['']);
                   });
               });
@@ -57,12 +54,15 @@ export class AuthService {
       });
   }
 
+  isLoggedIn() {
+    return this.afAuth.authState;
+  }
+
   login(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(user => {
         this.user.next(user);
         this.router.navigate(['dashboard']);
-        this.setToken();
         setTimeout(() => {
           if (!user.displayName) {
             const modalRef = this.modalService.open(FirstLoginComponent, { backdrop: 'static', keyboard: false })
@@ -72,8 +72,7 @@ export class AuthService {
           } else {
             this.translate.get('message.info.welcomeBack', { userName: user.displayName })
               .subscribe(welcome =>
-                this.toast.showToast(`info`, ``, welcome)
-              );
+                this.toast.showToast(`info`, ``, welcome));
           }
         }, 1000);
       })
@@ -86,22 +85,8 @@ export class AuthService {
   }
 
   logout() {
-    this.token = null;
-    this.user.next(null);
-    localStorage.removeItem('token');
     this.afAuth.auth.signOut();
-  }
-
-  getCurrentUser() {
-    return this.afAuth.authState;
-  }
-
-  setToken() {
-    this.afAuth.auth.currentUser.getIdToken()
-      .then(token => {
-        this.afAuth.auth.setPersistence('session');
-        localStorage.setItem('token', token);
-        localStorage.setItem('homeOfficeUser', this.afAuth.auth.currentUser.displayName);
-      });
+    this.user.next(undefined);
+    localStorage.removeItem('token');
   }
 }

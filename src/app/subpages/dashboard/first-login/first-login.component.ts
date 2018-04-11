@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from '../../../layout/toastr.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ho-first-login',
@@ -13,7 +14,8 @@ export class FirstLoginComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,10 @@ export class FirstLoginComponent implements OnInit {
     if (this.userName.replace(/\s/g, '') !== '') {
       this.activeModal.close(this.userName.replace(/\s/g, ''));
     } else {
-      this.toast.showToast(`warning`, `Invalid username`, `Your username cannot be empty or contain only spaces!`);
+      this.translate.get(['message.alert.usernameInvalid', 'message.alert.usernameEmpty'])
+      .subscribe(messages => {
+        this.toast.showToast(`success`, messages[Object.keys(messages)[0]], messages[Object.keys(messages)[1]]);
+      });
     }
   }
 }

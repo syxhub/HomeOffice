@@ -49,11 +49,6 @@ export class DatabaseService {
     return messages.snapshotChanges();
   }
 
-  getMyChatRooms() {
-    const chatRooms = this.db.list('chat/rooms');
-    return chatRooms.snapshotChanges();
-  }
-
   getTaskList(uid: string) {
     const taskList = this.db.list('users/' + uid + '/taskList');
     return taskList.snapshotChanges();
