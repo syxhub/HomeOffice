@@ -1,16 +1,13 @@
-import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { ToastrService } from '../../layout/toastr.service';
 import { FirstLoginComponent } from '../../subpages/dashboard/first-login/first-login.component';
-import { UserToSignUp } from './../../model/user.model';
-import { DatabaseService } from './../database/database.service';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +16,6 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private database: DatabaseService,
     private modalService: NgbModal,
     private router: Router,
     private toast: ToastrService,
@@ -30,7 +26,7 @@ export class AuthService {
     });
   }
 
-  signUp(newUser: UserToSignUp) {
+  signUp(newUser) {
     this.afAuth.auth.createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(() => {
         this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(newUser.email, newUser.password)
@@ -52,10 +48,6 @@ export class AuthService {
             this.toast.showToast(`warning`, failed, err)
           );
       });
-  }
-
-  isLoggedIn() {
-    return this.afAuth.authState;
   }
 
   login(email: string, password: string) {
@@ -84,9 +76,12 @@ export class AuthService {
       });
   }
 
+  isLoggedIn() {
+    return this.afAuth.authState;
+  }
+
   logout() {
     this.afAuth.auth.signOut();
     this.user.next(undefined);
-    localStorage.removeItem('token');
   }
 }

@@ -1,7 +1,6 @@
 import { ToastrService } from './../../layout/toastr.service';
 import { Component, OnInit } from '@angular/core';
 
-import { UserToSignUp } from '../../model/user.model';
 import { AuthService } from './../../shared/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -12,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SignUpComponent implements OnInit {
 
-  newUser: UserToSignUp;
+  newUser: any;
   passwordAgain: string;
 
   constructor(
@@ -22,7 +21,7 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.newUser = new UserToSignUp();
+    this.newUser = {};
   }
 
   signUp() {

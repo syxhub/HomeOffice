@@ -10,3 +10,5 @@ export class ToastrService {
     this.toastCtrl.show({ type: type, title: title, message: message, position: 'top-right' });
   }
 }
+
+
