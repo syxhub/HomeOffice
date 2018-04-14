@@ -44,7 +44,10 @@
     "alert": {
       "loginFailed": "Login Failed",
       "registrationFailed": "Registration Failed",
-      "passwordsNotMatch": "The passwords must match!"
+      "passwordsNotMatch": "The passwords must match!",
+      "taskCreationFailed": "Task creation has been cancelled!",
+      "usernameInvalid": "Invalid username",
+      "usernameEmpty": "Your username cannot be empty or contain only spaces!"
     },
     "info": {
       "welcomeBack": "Welcome back, {{userName}}!"
@@ -55,7 +58,10 @@
       "editorSuccess": "Coop-Edit",
       "editorCopyId": "Editor ID has been successfully copied to your clipboard!",
       "editorCreation": "Editor has been successfully created!",
-      "editorJoin": "Successfully joined to an existing Editor!"
+      "editorJoin": "Successfully joined to an existing Editor!",
+      "taskCreation": "Task has been successfully created!",
+      "taskSuccess": "Task",
+      "taskDone": "Task has been completed!"
     }
   }
 }
